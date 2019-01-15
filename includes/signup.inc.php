@@ -20,7 +20,7 @@
         header("Location: ../signup.php?error=invalidmaild&uid=".$username);
         exit();
     }elseif(!preg_match('/^[a-zA-Z0-9]*$/', $username)){
-        header("Location: ../signup.php?error=invalidusername&uid="."&email=".$email);
+        header("Location: ../signup.php?error=invalidusername"."&email=".$email);
         exit();
     }elseif ($password !== $passwordRepeat){
         header("Location: ../signup.php?error=passcheck&uid=".$username."&email=".$email);
@@ -41,6 +41,7 @@
 
             while($row= mysqli_fetch_assoc($result)){
                 $aut= false;
+                header("Location: ../signup.php?error=takenusername"."&email=".$email);
             }
         }
 
@@ -52,16 +53,24 @@
             $check= mysqli_stmt_prepare($stmt, $sql);
 
             if($check){
-                mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $password);
+
+                $hashedPwd= password_hash($password, PASSWORD_DEFAULT);
+
+                mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashedPwd);
                 mysqli_stmt_execute($stmt);
-                echo 'Agregado';
+                header("Location: ../signup.php?signup=succes");
             }else{
                 echo "SQL Failed";
             }
+
+
         }
+        mysqli_stmt($stmt);
+        mysqli_close($conn);
     }
 
 
  }else{
      echo 'Adios';
+     mysqli_close($conn);
  }

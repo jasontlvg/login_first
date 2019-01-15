@@ -19,12 +19,17 @@
                     <li class="li-menu"><a href="#" class="a-link">ABOUT ME</a></li>
                     <li class="li-menu"><a href="#" class="a-link">CONTACT</a></li>
                 </ul>
-                <form class="login-form" action="">
+
+                <form class="login-form" action="includes/login.inc.php">
                     <input placeholder="Email/Username" name="mailid" type="text" class="input-text input is-small">
                     <input placeholder="Password" name="pwd" type="password" class="input-text input is-small">
                     <button class="button is-dark is-small">LOGIN</button>
-                    <a href="/signup.php" class="button is-light is-small">SIGNUP</a>
-                    <a href="#" class="button is-dark is-small">LOGOUT</a>
+                </form>
+
+                <a href="/signup.php" class="button is-light is-small">SIGNUP</a>
+
+                <form action="includes/logout.inc.php">
+                    <button class="button is-dark is-small">LOGOUT</button>
                 </form>
             </nav>
         </header>
